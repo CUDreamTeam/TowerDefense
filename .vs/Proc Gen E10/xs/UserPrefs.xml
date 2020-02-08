@@ -1,0 +1,45 @@
+﻿<Properties StartupConfiguration="{D8B96E9A-E549-63DD-92C6-B687D08CB3CD}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/WayPointMouse.cs">
+    <Files>
+      <File FileName="Assets/Scripts/actor/Actor.cs" Line="23" Column="12" />
+      <File FileName="Assets/Scripts/FlyCamera.cs" Line="29" Column="1" />
+      <File FileName="Assets/Scripts/Waypoint.cs" Line="27" Column="33" />
+      <File FileName="Assets/Scripts/NewBehaviourScript.cs" Line="46" Column="2" />
+      <File FileName="Assets/Scripts/actor/Actor (copy).cs" Line="19" Column="75" />
+      <File FileName="Assets/Scripts/map/MeshGenerator.cs" Line="51" Column="56" />
+      <File FileName="Assets/Scripts/map/MapGenerator.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/map/MapDisplay.cs" Line="9" Column="4" />
+      <File FileName="Assets/Scripts/map/NavMeshSurface.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/map/TextureGenerator.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/map/NavMeshModifier.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/map/EndlessTerrain.cs" Line="139" Column="41" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Proc Gen E10" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="actor" expanded="True" />
+                <Node name="map" expanded="True" />
+                <Node name="WayPointMouse.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="Proc Gen E10" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="6e6541ed-4d42-4ab4-90a5-d96a4c733f83" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
