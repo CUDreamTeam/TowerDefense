@@ -55,7 +55,7 @@ public class MapManager : MonoBehaviour
         GetMapIsReady = true;
         mapNodes = createMap.mapNodes;
 
-        Debug.Log((mapNodes.GetLength(0) - 1) + ", " + (mapNodes.GetLength(mapNodes.Rank - 1) - 1));
+//        Debug.Log((mapNodes.GetLength(0) - 1) + ", " + (mapNodes.GetLength(mapNodes.Rank - 1) - 1));
 
         GameObject g = Instantiate(nodeMarkers[0]);
         g.transform.position = mapNodes[0, 0].GetPosition;

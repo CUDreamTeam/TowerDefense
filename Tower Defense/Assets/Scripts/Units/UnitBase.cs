@@ -28,6 +28,9 @@ public class UnitBase : MonoBehaviour, IComparable<UnitBase>
     public float attackDamage = 10;
     Thread combatThread;
 
+    bool needsNewTarget = false;
+    bool isAttacking = false;
+
     //Inter unit identifiers
     public int playerCode = 0;
     public int teamCode = 0;
@@ -42,19 +45,24 @@ public class UnitBase : MonoBehaviour, IComparable<UnitBase>
     // Start is called before the first frame update
     void Start()
     {
-        healthbar.gameObject.SetActive(false);
+        /*healthbar.gameObject.SetActive(false);
         StartCoroutine(FollowPath());
         StartCoroutine(CombatHandler());
         //UnitManager.instance.GetNextOccCode();
 
         if (teamCode == 0) healthbar.SetFillColor(Color.blue);
-        else healthbar.SetFillColor(Color.red);
+        else healthbar.SetFillColor(Color.red);*/
     }
 
     // Update is called once per frame
     void Update()
     {
         mPosition = transform.position;
+    }
+
+    public void PopulateUnit(int teamCode)
+    {
+
     }
 
     public int CompareTo(UnitBase other)
@@ -364,13 +372,13 @@ public class UnitBase : MonoBehaviour, IComparable<UnitBase>
         UnitSearch search = null;
         while (MapManager.instance == null) yield return null;
         while (!MapManager.instance.GetMapIsReady) yield return null;
-        Debug.Log("Starting combat handler");
+//        Debug.Log("Starting combat handler");
         //while (MapManager.mapNodes == null) yield return null;
         while (true)
         {
             if (search == null)
             {
-                search = new UnitSearch(maxScoutRange, occCode, teamCode, MapManager.instance.GetNodeFromLocation(transform.position));
+                search = new UnitSearch(maxFireRange, occCode, teamCode, MapManager.instance.GetNodeFromLocation(transform.position));
                 while (search.status == UnitSearch.SearchStatus.inProcess) yield return null;
                 if (search.status == UnitSearch.SearchStatus.succeeded)
                 {

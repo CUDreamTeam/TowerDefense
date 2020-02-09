@@ -37,7 +37,7 @@ public class UnitSearch
         List<Node> openSet = new List<Node>();
         List<Node> closedSet = new List<Node>();
 
-        Debug.Log("Starting search");
+//        Debug.Log("Starting search");
 
         openSet.Add(start);
         while (openSet.Count > 0)
@@ -50,7 +50,7 @@ public class UnitSearch
             if (current.occCode != -1 && current.occCode != unitCode)
             {
                 UnitBase u = UnitManager.instance.GetUnitFromCode(current.occCode);
-                Debug.Log("Found unit");
+//                Debug.Log("Found unit");
                 //Check if populated unit is not on the same team
                 if (u.teamCode != teamCode)
                 {

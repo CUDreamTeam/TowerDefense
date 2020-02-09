@@ -64,6 +64,20 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Camera\CameraController.cs" />
     <Compile Include="Assets\Scripts\Camera\UnitSelection.cs" />
+    <Compile Include="Assets\Scripts\KdTree\GameObjectMath.cs" />
+    <Compile Include="Assets\Scripts\KdTree\KdTreeLib\HyperRect.cs" />
+    <Compile Include="Assets\Scripts\KdTree\KdTreeLib\IKdTree.cs" />
+    <Compile Include="Assets\Scripts\KdTree\KdTreeLib\IPriorityQueue.cs" />
+    <Compile Include="Assets\Scripts\KdTree\KdTreeLib\KdTree.cs" />
+    <Compile Include="Assets\Scripts\KdTree\KdTreeLib\KdTreeNode.cs" />
+    <Compile Include="Assets\Scripts\KdTree\KdTreeLib\Math\DoubleMath.cs" />
+    <Compile Include="Assets\Scripts\KdTree\KdTreeLib\Math\FloatMath.cs" />
+    <Compile Include="Assets\Scripts\KdTree\KdTreeLib\Math\ITypeMath.cs" />
+    <Compile Include="Assets\Scripts\KdTree\KdTreeLib\Math\TypeMath.cs" />
+    <Compile Include="Assets\Scripts\KdTree\KdTreeLib\NearestNeighbourList.cs" />
+    <Compile Include="Assets\Scripts\KdTree\KdTreeLib\PriorityQueue.cs" />
+    <Compile Include="Assets\Scripts\KdTree\KdTreeLib\PriorityQueue2.cs" />
+    <Compile Include="Assets\Scripts\KdTree\KdTreeLib\Properties\AssemblyInfo.cs" />
     <Compile Include="Assets\Scripts\Map\CreateMap.cs" />
     <Compile Include="Assets\Scripts\Map\MapManager.cs" />
     <Compile Include="Assets\Scripts\Map\Node.cs" />
@@ -76,33 +90,37 @@
     <Compile Include="Assets\Scripts\Units\UnitBase.cs" />
     <Compile Include="Assets\Scripts\Units\UnitManager.cs" />
     <Compile Include="Assets\Scripts\Utils.cs" />
+    <Compile Include="Assets\Scripts\rework\CombatHandler.cs" />
+    <Compile Include="Assets\Scripts\rework\GameManager.cs" />
+    <Compile Include="Assets\Scripts\rework\PlayerHQ.cs" />
+    <Compile Include="Assets\Scripts\rework\Unit.cs" />
     <None Include="Assets\READ_ME.txt" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/_School/spring2020/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/_School/2020Spring/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:/_School/spring2020/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>D:/_School/2020Spring/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/_School/spring2020/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/_School/2020Spring/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/_School/spring2020/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/_School/2020Spring/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/_School/spring2020/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/_School/2020Spring/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/_School/spring2020/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/_School/2020Spring/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/_School/spring2020/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>D:/_School/2020Spring/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/_School/spring2020/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/_School/2020Spring/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/_School/spring2020/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/_School/2020Spring/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0f6/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
