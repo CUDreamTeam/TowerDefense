@@ -64,6 +64,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Camera\CameraController.cs" />
     <Compile Include="Assets\Scripts\Camera\UnitSelection.cs" />
+    <Compile Include="Assets\Scripts\CombatHandler.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\KdTree\GameObjectMath.cs" />
     <Compile Include="Assets\Scripts\KdTree\KdTreeLib\HyperRect.cs" />
     <Compile Include="Assets\Scripts\KdTree\KdTreeLib\IKdTree.cs" />
@@ -78,22 +80,20 @@
     <Compile Include="Assets\Scripts\KdTree\KdTreeLib\PriorityQueue.cs" />
     <Compile Include="Assets\Scripts\KdTree\KdTreeLib\PriorityQueue2.cs" />
     <Compile Include="Assets\Scripts\KdTree\KdTreeLib\Properties\AssemblyInfo.cs" />
-    <Compile Include="Assets\Scripts\Map\CreateMap.cs" />
-    <Compile Include="Assets\Scripts\Map\MapManager.cs" />
-    <Compile Include="Assets\Scripts\Map\Node.cs" />
-    <Compile Include="Assets\Scripts\MinHeap.cs" />
-    <Compile Include="Assets\Scripts\Pathfinding\PathFinder.cs" />
-    <Compile Include="Assets\Scripts\Pathfinding\PathFinderA1.cs" />
-    <Compile Include="Assets\Scripts\Search\PlacementSearch.cs" />
-    <Compile Include="Assets\Scripts\Search\UnitSearch.cs" />
-    <Compile Include="Assets\Scripts\Units\HealthBar.cs" />
-    <Compile Include="Assets\Scripts\Units\UnitBase.cs" />
-    <Compile Include="Assets\Scripts\Units\UnitManager.cs" />
+    <Compile Include="Assets\Scripts\Old\Map\CreateMap.cs" />
+    <Compile Include="Assets\Scripts\Old\Map\MapManager.cs" />
+    <Compile Include="Assets\Scripts\Old\Map\Node.cs" />
+    <Compile Include="Assets\Scripts\Old\MinHeap.cs" />
+    <Compile Include="Assets\Scripts\Old\Pathfinding\PathFinder.cs" />
+    <Compile Include="Assets\Scripts\Old\Pathfinding\PathFinderA1.cs" />
+    <Compile Include="Assets\Scripts\Old\Search\PlacementSearch.cs" />
+    <Compile Include="Assets\Scripts\Old\Search\UnitSearch.cs" />
+    <Compile Include="Assets\Scripts\Old\Units\HealthBar.cs" />
+    <Compile Include="Assets\Scripts\Old\Units\UnitBase.cs" />
+    <Compile Include="Assets\Scripts\Old\Units\UnitManager.cs" />
+    <Compile Include="Assets\Scripts\PlayerHQ.cs" />
+    <Compile Include="Assets\Scripts\Unit.cs" />
     <Compile Include="Assets\Scripts\Utils.cs" />
-    <Compile Include="Assets\Scripts\rework\CombatHandler.cs" />
-    <Compile Include="Assets\Scripts\rework\GameManager.cs" />
-    <Compile Include="Assets\Scripts\rework\PlayerHQ.cs" />
-    <Compile Include="Assets\Scripts\rework\Unit.cs" />
     <None Include="Assets\READ_ME.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/_School/2020Spring/CSCI_3308/TowerDefense/Tower Defense/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
