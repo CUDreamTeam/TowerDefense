@@ -595,7 +595,6 @@ namespace KdTree
 			{
 				return (KdTree<TKey, TValue>)formatter.Deserialize(stream);
 			}
-
 		}
 
         public IEnumerator<KdTreeNode<TKey, TValue>> GetEnumerator()

@@ -9,7 +9,7 @@ public class PlayerHQ : AttackableObject
     [SerializeField] private Transform[] spawnLocs = new Transform[5];
     [SerializeField] private GameObject[] unitsToSpwn = new GameObject[5];
 
-    public void Populate(int teamCode)
+    public override void Populate(int teamCode)
     {
         TeamCode = teamCode;
         healthBar.SetFillColor(GameManager.instance.players[teamCode].playerColor);
@@ -25,7 +25,7 @@ public class PlayerHQ : AttackableObject
             for (int j = 0; j < 5; j++)
             {
                 GameObject g = Instantiate(unitsToSpwn[j], spawnLocs[j].position, spawnLocs[j].rotation);
-                g.GetComponent<Unit>().Populate(TeamCode);
+                g.GetComponent<AttackableObject>().Populate(TeamCode);
                 //Debug.Log("Creating unit of team " + TeamCode);
             }
             yield return new WaitForSeconds(3f);

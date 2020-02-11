@@ -15,6 +15,10 @@ public class CombatHandler : MonoBehaviour
 
     public Text unitCounter = null;
 
+    public Text deltaSearchTime = null;
+    public Text deltaAttackTime = null;
+    public Text deltaApproachTime = null;
+
     private void Awake()
     {
         instance = this;
@@ -45,13 +49,16 @@ public class CombatHandler : MonoBehaviour
 
     IEnumerator HandleCombat()
     {
-        float time1 = 0;
-        float time2 = 0;
-        float time3 = Time.realtimeSinceStartup;
-        
+        float timeBeg = 0;
+        float timeInter = 0;
+
+        int hitUnits = 0;
+
+        timeInter = Time.realtimeSinceStartup;
         while (true)
         {
-            time1 = Time.realtimeSinceStartup;
+            hitUnits = 0;
+            timeBeg = Time.realtimeSinceStartup;
             Dictionary<int, KdTree<float, AttackableObject>> unitTrees = new Dictionary<int, KdTree<float, AttackableObject>>();
             for (int i = 0; i < unitCodes.Count; i++)
             {
@@ -66,17 +73,18 @@ public class CombatHandler : MonoBehaviour
                         u.startSearch = false;
                     }
 
-                    if (Time.realtimeSinceStartup - time3 > 0.005f)
+                    if (Time.realtimeSinceStartup - timeInter > 0.005f)
                     {
-                        yield return new WaitForSeconds(0.1f * (Time.realtimeSinceStartup - time3) + 0.05f);
-                        time3 = Time.realtimeSinceStartup;
+                        //yield return new WaitForSeconds(0.1f * (Time.realtimeSinceStartup - timeInter) + 0.05f);
+                        yield return null;
+                        timeInter = Time.realtimeSinceStartup;
                     }
                 }
             }
 
             for (int i = 0; i < unitCodes.Count; i++)
             {
-                for (int j = 0; j < units[i].Count; j++)
+                for (int j = 0; j < units[unitCodes[i]].Count; j++)
                 {
                     AttackableObject searcher = units[unitCodes[i]][j];
                     AttackableObject closest = null;
@@ -90,7 +98,7 @@ public class CombatHandler : MonoBehaviour
                         }
 
                         AttackableObject temp = unitTrees[unitCodes[k]].GetNearestNeighbours(searcher.GetFloatArray(), 1)[0].Value;
-                        if (closest == null || Vector3.Distance(searcher.transform.position, closest.transform.position) > Vector3.Distance(searcher.transform.position, temp.transform.position))
+                        if (temp!= null && (closest == null || Vector3.Distance(searcher.transform.position, closest.transform.position) > Vector3.Distance(searcher.transform.position, temp.transform.position)))
                         {
                             /*searcher.target = closest;
                             Debug.Log("Set target");
@@ -101,30 +109,28 @@ public class CombatHandler : MonoBehaviour
                     }
                     if (closest != null)
                     {
-                        searcher.target = closest;
-//                        Debug.Log("Set target");
-                        searcher.startApproach = true;
-//                        Debug.Log("Unit: isMovable: " + searcher.isMovable + " isApproaching: " + searcher.isApproaching);
+                        if (searcher.isMovable)
+                        {
+                            searcher.target = closest;
+                            searcher.startApproach = true;
+                        }
+                        else if(Vector3.Distance(searcher.transform.position, closest.transform.position) <= searcher.idealRange)
+                        {
+                            searcher.target = closest;
+                            searcher.startAttack = true;
+                        }
                     }
 
-                    /*AttackableObject closest = unitTrees[i].GetNearestNeighbours(searcher.GetFloatArray(), 1)[0].Value;
-                    if (searcher.target == null)
+                    if (Time.realtimeSinceStartup - timeInter > 0.005f)
                     {
-                        searcher.target = closest;
-                        Debug.Log("Set target");
-                        searcher.startApproach = true;
-                        Debug.Log("Unit: isMovable: " + searcher.isMovable  + " isApproaching: " + searcher.isApproaching);
-                    }*/
-
-                    if (Time.realtimeSinceStartup - time3 > 0.005f)
-                    {
-                        yield return new WaitForSeconds(0.1f * (Time.realtimeSinceStartup - time3) + 0.05f);
-                        time3 = Time.realtimeSinceStartup;
+                        //yield return new WaitForSeconds(0.1f * (Time.realtimeSinceStartup - timeInter) + 0.05f);
+                        yield return null;
+                        timeInter = Time.realtimeSinceStartup;
                     }
                 }
             }
-            time2 = Time.realtimeSinceStartup;
-            yield return new WaitForSeconds(0.5f + 1.0f * (time2 - time1));
+            deltaSearchTime.text = "DST: " + ((Time.realtimeSinceStartup - timeBeg)) + " TU: " + hitUnits;
+            yield return new WaitForSeconds(0.5f + 1.0f * (Time.realtimeSinceStartup - timeBeg));
         }
     }
 
@@ -323,6 +329,9 @@ public abstract class AttackableObject : MonoBehaviour
     public int TeamCode = 0;
     [SerializeField] public HealthBar healthBar = null;
 
+    public bool isMovable = false;
+    public bool canAttack = false;
+
     public bool startSearch = false;
     public bool startApproach = false;
     public bool startAttack = false;
@@ -331,10 +340,9 @@ public abstract class AttackableObject : MonoBehaviour
     public bool isApproaching = false;
     public bool isAttacking = false;
     public bool onTargetSearch = false;
-
-    public bool isMovable = false;
+    
     public NavMeshAgent navAgent = null;
-    public float moveSpeed = 50f;
+    public float moveSpeed = 5f;
 
     public AttackableObject target = null;
 
@@ -342,7 +350,10 @@ public abstract class AttackableObject : MonoBehaviour
     public float prevDist = 0;
     public int apprFailed = 0;
     public int critApprFailed = 10;
+
     public float attackDamage = 10f;
+    public float lastAttack = 0;
+    public float timeBetweenAttacks = 0.1f;
 
     public float maxHealth = 100;
     public float currentHealth = 100;
@@ -352,7 +363,18 @@ public abstract class AttackableObject : MonoBehaviour
         return new float[] { transform.position.x, transform.position.z};
     }
 
-    public void TakeDamage(float damage)
+    public virtual void Populate(int teamCode)
+    {
+        TeamCode = teamCode;
+        CombatHandler.instance.AddUnit(this);
+        navAgent = GetComponent<NavMeshAgent>();
+        navAgent.SetDestination(transform.position);
+        startSearch = true;
+
+        gameObject.GetComponent<Renderer>().material.color = GameManager.instance.players[TeamCode].playerColor;
+    }
+
+    public virtual void TakeDamage(float damage)
     {
         currentHealth -= damage;
         if (currentHealth > 0)
@@ -360,6 +382,30 @@ public abstract class AttackableObject : MonoBehaviour
 //            Debug.Log("Killed unit");
             CombatHandler.instance.RemoveUnit(this);
             Destroy(gameObject);
+        }
+    }
+
+    public virtual void AttackTarget()
+    {
+        if(Time.realtimeSinceStartup >= lastAttack + timeBetweenAttacks)
+        {
+            target.TakeDamage(attackDamage);
+            lastAttack = Time.realtimeSinceStartup;
+        }
+    }
+}
+
+public class ChargedAttackBase : AttackableObject
+{
+    /*[SerializeField] private float timeBetweenAttacks = 1f;
+    public float lastAttack = 0f;*/
+
+    public override void AttackTarget()
+    {
+        if (Time.realtimeSinceStartup >= lastAttack + timeBetweenAttacks)
+        {
+            target.TakeDamage(attackDamage);
+            lastAttack = Time.realtimeSinceStartup;
         }
     }
 }

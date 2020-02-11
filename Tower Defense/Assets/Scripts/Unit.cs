@@ -5,15 +5,10 @@ using UnityEngine.AI;
 
 public class Unit : AttackableObject
 {
-    public void Populate(int teamCode)
+    public override void Populate(int teamCode)
     {
-        TeamCode = teamCode;
-        CombatHandler.instance.AddUnit(this);
-        navAgent = GetComponent<NavMeshAgent>();
-        navAgent.SetDestination(transform.position);
-        startSearch = true;
+        base.Populate(teamCode);
         isMovable = true;
-
-        gameObject.GetComponent<Renderer>().material.color = GameManager.instance.players[TeamCode].playerColor;
+        canAttack = true;
     }
 }

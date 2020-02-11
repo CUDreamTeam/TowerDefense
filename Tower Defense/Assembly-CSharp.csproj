@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Camera\CameraController.cs" />
     <Compile Include="Assets\Scripts\Camera\UnitSelection.cs" />
+    <Compile Include="Assets\Scripts\ChargedAttackUnit.cs" />
     <Compile Include="Assets\Scripts\CombatHandler.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\KdTree\GameObjectMath.cs" />
