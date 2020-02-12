@@ -48,5 +48,5 @@ public class TeamInfo
 {
     public int playerCode = 0;
     public List<int> allies = new List<int>();
-    public List<UnitBase> attackable = new List<UnitBase>();
+    public List<AttackableObject> attackable = new List<AttackableObject>();
 }

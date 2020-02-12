@@ -8,10 +8,10 @@ using UnityEngine.UI;
 
 public class CombatHandler : MonoBehaviour
 {
+    public static CombatHandler instance = null;
+
     public Dictionary<int, List<AttackableObject>> units = new Dictionary<int, List<AttackableObject>>();
     public List<int> unitCodes = new List<int>();
-
-    public static CombatHandler instance = null;
 
     public Text unitCounter = null;
 
@@ -23,7 +23,7 @@ public class CombatHandler : MonoBehaviour
     {
         instance = this;
 
-        StartCoroutine(HandleCombat());
+        StartCoroutine(HandleSearch());
         StartCoroutine(ApproachTargets());
         StartCoroutine(HandleAttacking());
     }
@@ -47,7 +47,7 @@ public class CombatHandler : MonoBehaviour
         units[a.TeamCode].Remove(a);
     }
 
-    IEnumerator HandleCombat()
+    IEnumerator HandleSearch()
     {
         float timeBeg = 0;
         float timeInter = 0;
@@ -87,6 +87,7 @@ public class CombatHandler : MonoBehaviour
                 for (int j = 0; j < units[unitCodes[i]].Count; j++)
                 {
                     AttackableObject searcher = units[unitCodes[i]][j];
+                    if (!searcher.onTargetSearch) continue;
                     AttackableObject closest = null;
                     for (int k = 0; k < unitCodes.Count; k++)
                     {
@@ -98,13 +99,14 @@ public class CombatHandler : MonoBehaviour
                         }
 
                         AttackableObject temp = unitTrees[unitCodes[k]].GetNearestNeighbours(searcher.GetFloatArray(), 1)[0].Value;
-                        if (temp!= null && (closest == null || Vector3.Distance(searcher.transform.position, closest.transform.position) > Vector3.Distance(searcher.transform.position, temp.transform.position)))
+                        if (temp != null && (closest == null || Vector3.Distance(searcher.transform.position, closest.transform.position) > Vector3.Distance(searcher.transform.position, temp.transform.position)))
                         {
+                            if (Vector3.Distance(searcher.transform.position, temp.transform.position) <= searcher.searchRange) closest = temp;
                             /*searcher.target = closest;
                             Debug.Log("Set target");
                             searcher.startApproach = true;
                             Debug.Log("Unit: isMovable: " + searcher.isMovable + " isApproaching: " + searcher.isApproaching);*/
-                            closest = temp;
+                            //closest = temp;
                         }
                     }
                     if (closest != null)
@@ -331,6 +333,7 @@ public abstract class AttackableObject : MonoBehaviour
 
     public bool isMovable = false;
     public bool canAttack = false;
+    public bool isSelected = false;
 
     public bool startSearch = false;
     public bool startApproach = false;
@@ -346,6 +349,7 @@ public abstract class AttackableObject : MonoBehaviour
 
     public AttackableObject target = null;
 
+    public float searchRange = 10f;
     public float idealRange = 2f;
     public float prevDist = 0;
     public int apprFailed = 0;
@@ -392,6 +396,11 @@ public abstract class AttackableObject : MonoBehaviour
             target.TakeDamage(attackDamage);
             lastAttack = Time.realtimeSinceStartup;
         }
+    }
+
+    public virtual void SetSelected(bool selected)
+    {
+        healthBar.gameObject.SetActive(selected);
     }
 }
 

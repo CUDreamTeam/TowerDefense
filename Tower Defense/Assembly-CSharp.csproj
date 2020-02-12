@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\ChargedAttackUnit.cs" />
     <Compile Include="Assets\Scripts\CombatHandler.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\HealthBar.cs" />
     <Compile Include="Assets\Scripts\KdTree\GameObjectMath.cs" />
     <Compile Include="Assets\Scripts\KdTree\KdTreeLib\HyperRect.cs" />
     <Compile Include="Assets\Scripts\KdTree\KdTreeLib\IKdTree.cs" />
@@ -81,17 +82,7 @@
     <Compile Include="Assets\Scripts\KdTree\KdTreeLib\PriorityQueue.cs" />
     <Compile Include="Assets\Scripts\KdTree\KdTreeLib\PriorityQueue2.cs" />
     <Compile Include="Assets\Scripts\KdTree\KdTreeLib\Properties\AssemblyInfo.cs" />
-    <Compile Include="Assets\Scripts\Old\Map\CreateMap.cs" />
-    <Compile Include="Assets\Scripts\Old\Map\MapManager.cs" />
-    <Compile Include="Assets\Scripts\Old\Map\Node.cs" />
-    <Compile Include="Assets\Scripts\Old\MinHeap.cs" />
-    <Compile Include="Assets\Scripts\Old\Pathfinding\PathFinder.cs" />
-    <Compile Include="Assets\Scripts\Old\Pathfinding\PathFinderA1.cs" />
-    <Compile Include="Assets\Scripts\Old\Search\PlacementSearch.cs" />
-    <Compile Include="Assets\Scripts\Old\Search\UnitSearch.cs" />
-    <Compile Include="Assets\Scripts\Old\Units\HealthBar.cs" />
-    <Compile Include="Assets\Scripts\Old\Units\UnitBase.cs" />
-    <Compile Include="Assets\Scripts\Old\Units\UnitManager.cs" />
+    <Compile Include="Assets\Scripts\MinHeap.cs" />
     <Compile Include="Assets\Scripts\PlayerHQ.cs" />
     <Compile Include="Assets\Scripts\Unit.cs" />
     <Compile Include="Assets\Scripts\Utils.cs" />

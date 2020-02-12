@@ -3,15 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHQ : AttackableObject
-{
-    //[SerializeField] private HealthBar healthBar = null;
-    
+{   
     [SerializeField] private Transform[] spawnLocs = new Transform[5];
     [SerializeField] private GameObject[] unitsToSpwn = new GameObject[5];
+
+    private List<AttackableObject> playerUnits = null;
+
+    [SerializeField] private int unitCapacity = 50;
+    [SerializeField] private int currentUnits = 10;
 
     public override void Populate(int teamCode)
     {
         TeamCode = teamCode;
+        CombatHandler.instance.AddUnit(this);
+
+        gameObject.GetComponent<Renderer>().material.color = GameManager.instance.players[TeamCode].playerColor;
+
+        //TeamCode = teamCode;
         healthBar.SetFillColor(GameManager.instance.players[teamCode].playerColor);
         //Debug.Log("Player colo");
         StartCoroutine(SpawnUnits());
@@ -20,7 +28,7 @@ public class PlayerHQ : AttackableObject
     IEnumerator SpawnUnits()
     {
         while (CombatHandler.instance == null) yield return new WaitForSeconds(1);
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 2; i++)
         {
             for (int j = 0; j < 5; j++)
             {

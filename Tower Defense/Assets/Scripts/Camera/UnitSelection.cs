@@ -8,8 +8,8 @@ public class UnitSelection : MonoBehaviour
 {
     public static UnitSelection instance = null;
 
-    public List<UnitBase> playerUnits = new List<UnitBase>();
-    public List<UnitBase> selected = new List<UnitBase>();
+    public List<AttackableObject> playerUnits = null;
+    public List<AttackableObject> selected = new List<AttackableObject>();
     bool isSelecting = false;
 
     Vector3 mousePos;
@@ -18,10 +18,12 @@ public class UnitSelection : MonoBehaviour
     private void Start()
     {
         instance = this;
+        playerUnits = CombatHandler.instance.units[0];
     }
 
     private void Update()
     {
+        if (playerUnits == null) return;
         mousePos = Input.mousePosition;
         if (Input.GetMouseButtonDown(1))
         {
@@ -38,12 +40,12 @@ public class UnitSelection : MonoBehaviour
                 selected[i].SetSelected(false);
             }
             isSelecting = true;
-            selected = new List<UnitBase>();
+            selected = new List<AttackableObject>();
         }
 
         if (Input.GetMouseButtonUp(1))
         {
-            foreach (UnitBase u in playerUnits)
+            foreach (AttackableObject u in playerUnits)
             {
                 if (u == null) continue;
                 if (inBounds(u.gameObject))
@@ -57,7 +59,7 @@ public class UnitSelection : MonoBehaviour
 
         if (isSelecting)
         {
-            foreach (UnitBase u in playerUnits)
+            foreach (AttackableObject u in playerUnits)
             {
                 if (u == null) continue;
                 if (inBounds(u.gameObject))
@@ -77,88 +79,9 @@ public class UnitSelection : MonoBehaviour
             RaycastHit hit = new RaycastHit();
             if (Physics.Raycast(ray, out hit))
             {
-                //print("Started search, " + selected.Count);
-                //sendMoveLoc(hit.point);
-                //MapManager.instance.AddPathRequest(hit.point, selected, 0);
-                Thread temp = new Thread(unused => BuildMoveLocations(selected, hit.point));
-                temp.Start();
+                
             }
         }
-    }
-
-    void BuildMoveLocations(List<UnitBase> units, Vector3 start)
-    {
-        PlacementSearch temp = new PlacementSearch(units, MapManager.instance.GetNodeFromLocation(start));
-        while (temp.status == 0) ;
-        for (int i = 0; i < units.Count; i++)
-        {
-            //MapManager.instance.AddPathRequest(temp.movePos[i], units[i], 0);
-            units[i].RequestPath(temp.movePos[i], 1, 0);
-        }
-    }
-
-    void SendMoveLoc(Vector3 pos)
-    {
-        if (selected.Count == 0)
-        {
-            return;
-        }
-
-        MinHeap<UnitBase> ordered = new MinHeap<UnitBase>(selected);
-        UnitBase[,] placed = null;
-        int layers = estimateLayers();
-
-        placed = new UnitBase[layers, layers];
-
-        for (int i = 0; i < layers; i++)
-        {
-            for (int j = 0; j < layers; j++)
-            {
-                if (ordered.size > 0)
-                    placed[i, j] = ordered.getFront();
-            }
-        }
-
-        Vector3 position = pos;
-
-        position.x -= placed[0, 0].size * (layers / 2);
-        position.z -= placed[0, 0].size * (layers / 2);
-
-        float x = position.x;
-        float increase = 0;
-
-        for (int i = 0; i < layers; i++)
-        {
-            position.x = x;
-            for (int j = 0; j < layers; j++)
-            {
-                if (placed[i, j] != null)
-                {
-                    placed[i, j].RequestPath(position, 0, 0);
-                    position.x += placed[i, j].size * 2;
-                    increase = placed[i, j].size;
-                }
-            }
-            position.z += increase * 2;
-        }
-    }
-
-    int estimateLayers()
-    {
-        int space = 0;
-        int layers = 0;
-
-        foreach (UnitBase u in selected)
-        {
-            space += u.size * u.size;
-        }
-
-        while (layers * layers < space)
-        {
-            layers++;
-        }
-
-        return layers;
     }
 
     bool inBounds(GameObject g)
@@ -179,13 +102,9 @@ public class UnitSelection : MonoBehaviour
         }
     }
 
-    private void OnApplicationQuit()
+    IEnumerator GetPlayerUnits()
     {
-        selected = null;
-        foreach (UnitBase u in playerUnits)
-        {
-            Destroy(u);
-        }
-        playerUnits = null;
+        yield return new WaitForSeconds(1);
+        playerUnits = CombatHandler.instance.units[0];
     }
 }
