@@ -19,6 +19,8 @@ public class CombatHandler : MonoBehaviour
     public Text deltaAttackTime = null;
     public Text deltaApproachTime = null;
 
+    private KdTree<float, ResourceNode> resources = new KdTree<float, ResourceNode>(2, new FloatMath());
+
     private void Awake()
     {
         instance = this;
@@ -42,9 +44,19 @@ public class CombatHandler : MonoBehaviour
         }
     }
 
+    public void AddResourceNode(ResourceNode r)
+    {
+        resources.Add(new float[] { r.transform.position.x, r.transform.position.z}, r);
+    }
+
     public void RemoveUnit(AttackableObject a)
     {
         units[a.TeamCode].Remove(a);
+    }
+
+    public void RemoveResourceNode(ResourceNode r)
+    {
+        resources.RemoveAt(new float[] { transform.transform.position.x, r.transform.position.z});
     }
 
     IEnumerator HandleSearch()
@@ -114,11 +126,13 @@ public class CombatHandler : MonoBehaviour
                         if (searcher.isMovable)
                         {
                             searcher.target = closest;
+                            searcher.onTargetSearch = false;
                             searcher.startApproach = true;
                         }
                         else if(Vector3.Distance(searcher.transform.position, closest.transform.position) <= searcher.idealRange)
                         {
                             searcher.target = closest;
+                            searcher.onTargetSearch = false;
                             searcher.startAttack = true;
                         }
                     }

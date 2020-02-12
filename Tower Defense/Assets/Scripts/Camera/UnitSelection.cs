@@ -18,7 +18,7 @@ public class UnitSelection : MonoBehaviour
     private void Start()
     {
         instance = this;
-        playerUnits = CombatHandler.instance.units[0];
+        StartCoroutine(GetPlayerUnits());
     }
 
     private void Update()
