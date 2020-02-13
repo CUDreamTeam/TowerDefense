@@ -270,3 +270,7 @@ D:\_School\spring2020\CSCI_3308\Tower Defense\obj\Debug\Assembly-CSharp.csproj.C
 D:\_School\spring2020\CSCI_3308\Tower Defense\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 D:\_School\spring2020\CSCI_3308\Tower Defense\obj\Debug\Assembly-CSharp.dll
 D:\_School\spring2020\CSCI_3308\Tower Defense\obj\Debug\Assembly-CSharp.pdb
+D:\_School\2020Spring\CSCI_3308\TowerDefense\Tower Defense\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+D:\_School\2020Spring\CSCI_3308\TowerDefense\Tower Defense\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+D:\_School\2020Spring\CSCI_3308\TowerDefense\Tower Defense\obj\Debug\Assembly-CSharp.dll
+D:\_School\2020Spring\CSCI_3308\TowerDefense\Tower Defense\obj\Debug\Assembly-CSharp.pdb

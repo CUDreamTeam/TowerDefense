@@ -107,20 +107,32 @@ public class CombatHandler : MonoBehaviour
                     AttackableObject searcher = units[unitCodes[i]][j];
                     if (!searcher.onTargetSearch || !searcher.canAttack) continue;
                     AttackableObject closest = null;
-                    for (int k = 0; k < unitCodes.Count; k++)
+                    if (searcher.canAttack)
                     {
-                        if (k == i) continue;
-
-                        if (unitTrees[unitCodes[k]].Count == 0)
+                        for (int k = 0; k < unitCodes.Count; k++)
                         {
-                            continue;
-                        }
+                            if (k == i) continue;
 
-                        AttackableObject temp = unitTrees[unitCodes[k]].GetNearestNeighbours(searcher.GetFloatArray(), 1)[0].Value;
-                        if (temp != null && (closest == null || Vector3.Distance(searcher.transform.position, closest.transform.position) > Vector3.Distance(searcher.transform.position, temp.transform.position)))
-                        {
-                            closest = temp;
+                            if (unitTrees[unitCodes[k]].Count == 0)
+                            {
+                                continue;
+                            }
+
+                            AttackableObject temp = unitTrees[unitCodes[k]].GetNearestNeighbours(searcher.GetFloatArray(), 1)[0].Value;
+                            if (temp != null && (closest == null || Vector3.Distance(searcher.transform.position, closest.transform.position) > Vector3.Distance(searcher.transform.position, temp.transform.position)))
+                            {
+                                closest = temp;
+                            }
                         }
+                    }
+                    else if(searcher.isCollector)
+                    {
+                        /*int searchCount = 1;
+                        while (closest == null && searchCount < resources.Count)
+                        {
+                            
+                        }*/
+                        closest = resources.GetNearestNeighbours(searcher.GetFloatArray(), 1)[0].Value;
                     }
                     if (closest != null)
                     {
@@ -250,6 +262,8 @@ public class CombatHandler : MonoBehaviour
                             {
                                 if (!appr.MoveToNextLoc())
                                 {
+                                    Debug.Log("Reached target pos");
+                                    appr.navAgent.SetDestination(appr.transform.position);
                                     appr.isApproaching = false;
                                     appr.overrideMovement = false;
                                 }
@@ -414,24 +428,29 @@ public class CombatHandler : MonoBehaviour
 
 public abstract class AttackableObject : MonoBehaviour
 {
+    //Team information
     public int TeamCode = 0;
     [SerializeField] public HealthBar healthBar = null;
 
+    //Object ability variables
     public bool isMovable = false;
     public bool canAttack = false;
-    public bool isSelected = false;
+    public bool isCollector = false;
 
+    //Handler values
+    //-Search
     public bool startSearch = false;
-    public bool startApproach = false;
-
-    //public bool isReady = true;
-    public bool isApproaching = false;
-    public bool isAttacking = false;
     public bool onTargetSearch = false;
-    
+    //Approach
+    public bool startApproach = false;
+    public bool isApproaching = false;
     public NavMeshAgent navAgent = null;
     public float moveSpeed = 5f;
-
+    //Attack
+    public bool isAttacking = false;
+    //User input
+    public bool isSelected = false;
+    
     public AttackableObject target = null;
 
     public float searchRange = 10f;

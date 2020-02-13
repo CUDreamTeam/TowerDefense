@@ -2,17 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceNode : MonoBehaviour
+public class ResourceNode : AttackableObject
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Populate(int teamCode)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        CombatHandler.instance.AddResourceNode(this);
     }
 }
