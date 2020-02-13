@@ -200,7 +200,6 @@ MonoBehaviour:
   isSelected: 0
   startSearch: 0
   startApproach: 0
-  startAttack: 0
   isApproaching: 0
   isAttacking: 0
   onTargetSearch: 0
@@ -236,7 +235,7 @@ NavMeshAgent:
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 1

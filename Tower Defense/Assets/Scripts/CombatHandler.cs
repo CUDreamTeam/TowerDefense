@@ -119,13 +119,7 @@ public class CombatHandler : MonoBehaviour
                         AttackableObject temp = unitTrees[unitCodes[k]].GetNearestNeighbours(searcher.GetFloatArray(), 1)[0].Value;
                         if (temp != null && (closest == null || Vector3.Distance(searcher.transform.position, closest.transform.position) > Vector3.Distance(searcher.transform.position, temp.transform.position)))
                         {
-                            //if (Vector3.Distance(searcher.transform.position, temp.transform.position) <= searcher.searchRange) closest = temp;
                             closest = temp;
-                            /*searcher.target = closest;
-                            Debug.Log("Set target");
-                            searcher.startApproach = true;
-                            Debug.Log("Unit: isMovable: " + searcher.isMovable + " isApproaching: " + searcher.isApproaching);*/
-                            //closest = temp;
                         }
                     }
                     if (closest != null)
@@ -225,7 +219,8 @@ public class CombatHandler : MonoBehaviour
                             appr.startApproach = false;
                             appr.isApproaching = true;
                             appr.lastMoveDist = float.MaxValue;
-                            appr.navAgent.SetDestination(appr.overrideMovePos);
+                            //appr.navAgent.SetDestination(appr.overrideMovePos);
+                            appr.StartWaypoints();
                         }
                         else
                         {
@@ -250,23 +245,14 @@ public class CombatHandler : MonoBehaviour
                     {
                         if (appr.overrideMovement)
                         {
-                            /*Debug.Log(Vector3.Distance(appr.overrideMovePos, appr.transform.position));
-                            if (Vector3.Distance(appr.overrideMovePos, appr.transform.position) <= 0.5f)
-                            {
-                                appr.navAgent.stoppingDistance = 0.5f;
-                            }
-                            if (appr.navAgent.isStopped)
-                            {
-                                Debug.Log("Unit reached unit set location");
-                                appr.overrideMovement = false;
-                            }*/
                             float newDist = Vector2.Distance(new Vector2(appr.overrideMovePos.x, appr.overrideMovePos.z), new Vector2(appr.transform.position.x, appr.transform.position.z));
                             if (newDist < 1)
                             {
-//                                Debug.Log("Unit finished moving to player designated location");
-                                //appr.navAgent.SetDestination(appr.transform.position);
-                                appr.isApproaching = false;
-                                appr.overrideMovement = false;
+                                if (!appr.MoveToNextLoc())
+                                {
+                                    appr.isApproaching = false;
+                                    appr.overrideMovement = false;
+                                }
                             }
                             else
                             {
@@ -342,7 +328,8 @@ public class CombatHandler : MonoBehaviour
                         if (Time.realtimeSinceStartup - time3 > 0.005f)
                         {
                             //twaiter = twaiter + 0.1f * (Time.realtimeSinceStartup - t3) + 0.05f;
-                            yield return new WaitForSeconds(0.1f * (Time.realtimeSinceStartup - time3) + 0.05f);
+                            //yield return new WaitForSeconds(0.1f * (Time.realtimeSinceStartup - time3) + 0.05f);
+                            yield return null;
                             time3 = Time.realtimeSinceStartup;
                         }
                     }
@@ -358,9 +345,6 @@ public class CombatHandler : MonoBehaviour
         //Intermediate time used when in loop
         float inter = Time.realtimeSinceStartup;
 
-        float ax, ay, az;
-        float tx, ty, tz;
-
         while (true)
         {
             timeBeg = Time.realtimeSinceStartup;
@@ -374,14 +358,6 @@ public class CombatHandler : MonoBehaviour
                     {
                         AttackableObject target = attacker.target;
 
-                        /*ax = attacker.transform.position.x;
-                        ay = attacker.transform.position.y;
-                        az = attacker.transform.position.z;
-
-                        tx = target.transform.position.x;
-                        ty = target.transform.position.y;
-                        tz = target.transform.position.z;*/
-
                         if (Vector3.Distance(attacker.transform.position, target.transform.position) > attacker.idealRange)
                         {
                             if (!attacker.overrideMovement)
@@ -392,8 +368,6 @@ public class CombatHandler : MonoBehaviour
                         }
                         else
                         {
-                            //                            Debug.Log("Attacking");
-                            //target.TakeDamage(attacker.attackDamage);
                             attacker.AttackTarget();
                         }
                     }
@@ -406,7 +380,8 @@ public class CombatHandler : MonoBehaviour
                     if (Time.realtimeSinceStartup - inter > 0.005f)
                     {
                         //twaiter = twaiter + 0.1f * (Time.realtimeSinceStartup - t3) + 0.05f;
-                        yield return new WaitForSeconds(0.1f * (Time.realtimeSinceStartup - inter) + 0.05f);
+                        //yield return new WaitForSeconds(0.1f * (Time.realtimeSinceStartup - inter) + 0.05f);
+                        yield return null;
                         inter = Time.realtimeSinceStartup;
                     }
                 }
@@ -475,6 +450,8 @@ public abstract class AttackableObject : MonoBehaviour
     public bool overrideMovement = false;
     public Vector3 overrideMovePos = Vector3.zero;
     public float lastMoveDist = float.MaxValue;
+    private List<Vector3> waypoints = null;
+    private int moveIndex = 0;
 
     public float[] GetFloatArray()
     {
@@ -524,12 +501,50 @@ public abstract class AttackableObject : MonoBehaviour
     {
         if (isMovable)
         {
+            waypoints = new List<Vector3>();
+            waypoints.Add(target);
+            moveIndex = 0;
+
             overrideMovement = true;
             overrideMovePos = target;
 
             isApproaching = false;
             startApproach = true;
             //navAgent.SetDestination(target);
+        }
+    }
+
+    public void OverrideMovement(List<Vector3> targets)
+    {
+        if (isMovable)
+        {
+            waypoints = targets;
+            moveIndex = 0;
+
+            overrideMovement = true;
+            overrideMovePos = targets[0];
+
+            isApproaching = false;
+            startApproach = true;
+        }
+    }
+
+    public void StartWaypoints()
+    {
+        navAgent.SetDestination(waypoints[moveIndex]);
+    }
+
+    public bool MoveToNextLoc()
+    {
+        moveIndex++;
+        if (moveIndex < waypoints.Count)
+        {
+            navAgent.SetDestination(waypoints[moveIndex]);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
