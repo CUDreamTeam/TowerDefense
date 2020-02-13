@@ -541,6 +541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerUnits: []
   selected: []
+  testCount: 10
 --- !u!1 &761710246
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,12 +586,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421cfb065583d594a942b8e43ce2c436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numTeamsToCreate: 4
+  numTeamsToCreate: 5
   spawnLocs:
   - {fileID: 1327396557}
   - {fileID: 1098224651}
   - {fileID: 397977075}
   - {fileID: 1809760711}
+  - {fileID: 1156419384}
   playerHQ: {fileID: 8741511788861688887, guid: 3265516923899ca479a9ebcc992cbf81,
     type: 3}
 --- !u!114 &761710250
@@ -885,6 +887,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154525038}
   m_CullTransparentMesh: 0
+--- !u!1 &1156419383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1156419384}
+  m_Layer: 0
+  m_Name: SpawnLocs (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1156419384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156419383}
+  m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 100, y: 1.5, z: 100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
 --- !u!1 &1186046585
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,7 +946,7 @@ Transform:
   m_Children:
   - {fileID: 4595200353351695194}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1327396556
 GameObject:

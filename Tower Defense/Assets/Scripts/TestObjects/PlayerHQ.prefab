@@ -236,6 +236,7 @@ GameObject:
   - component: {fileID: 8741511788861688880}
   - component: {fileID: 8741511788861688881}
   - component: {fileID: 2005608359937262639}
+  - component: {fileID: 2524223372959733163}
   m_Layer: 0
   m_Name: PlayerHQ
   m_TagString: Untagged
@@ -320,23 +321,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TeamCode: 0
   healthBar: {fileID: 7328501032354540433}
+  isMovable: 0
+  canAttack: 0
+  isSelected: 0
   startSearch: 0
   startApproach: 0
   startAttack: 0
   isApproaching: 0
   isAttacking: 0
   onTargetSearch: 0
-  isMovable: 0
   navAgent: {fileID: 0}
   moveSpeed: 3.5
   target: {fileID: 0}
+  searchRange: 10
   idealRange: 2
   prevDist: 0
   apprFailed: 0
   critApprFailed: 10
   attackDamage: 10
+  lastAttack: 0
+  timeBetweenAttacks: 0.1
   maxHealth: 100
   currentHealth: 100
+  overrideMovement: 0
+  overrideMovePos: {x: 0, y: 0, z: 0}
   spawnLocs:
   - {fileID: 390038850989555194}
   - {fileID: 5896312514378677596}
@@ -349,6 +357,24 @@ MonoBehaviour:
   - {fileID: 6612331447036039392, guid: 796a720e24fd6c44ab794f3a90044856, type: 3}
   - {fileID: 3531860127928454963, guid: 5d2ac7d50d65e5c4cbd8eefa81b3afb2, type: 3}
   - {fileID: 3531860127928454963, guid: 5d2ac7d50d65e5c4cbd8eefa81b3afb2, type: 3}
+  unitCapacity: 50
+  currentUnits: 10
+--- !u!208 &2524223372959733163
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8741511788861688887}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &8871827670088914795
 GameObject:
   m_ObjectHideFlags: 0

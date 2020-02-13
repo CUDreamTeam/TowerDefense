@@ -207,16 +207,19 @@ MonoBehaviour:
   navAgent: {fileID: 0}
   moveSpeed: 5
   target: {fileID: 0}
-  searchRange: 10
+  searchRange: 100
   idealRange: 2
   prevDist: 0
   apprFailed: 0
   critApprFailed: 10
   attackDamage: 20
   lastAttack: 0
-  timeBetweenAttacks: 1
+  timeBetweenAttacks: 0.25
   maxHealth: 100
   currentHealth: 100
+  overrideMovement: 0
+  overrideMovePos: {x: 0, y: 0, z: 0}
+  lastMoveDist: 3.4028235e+38
 --- !u!195 &560837228429399255
 NavMeshAgent:
   m_ObjectHideFlags: 0

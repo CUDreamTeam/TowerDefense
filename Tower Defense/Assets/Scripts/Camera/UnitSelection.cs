@@ -79,7 +79,101 @@ public class UnitSelection : MonoBehaviour
             RaycastHit hit = new RaycastHit();
             if (Physics.Raycast(ray, out hit))
             {
-                
+                //foreach (AttackableObject u in selected) u.OverrideMovement(hit.point);
+                BuildMoveLocs(hit.point);
+            }
+        }
+    }
+
+    public int testCount = 5;
+    private void BuildMoveLocs(Vector3 point)
+    {
+        int placed = 0;
+        int toPlace = 0;
+        int direction = 0;
+        //1 - ->
+        //2 - down
+        //3 - <-
+        //4 - ^
+        for (int i = 0; i < selected.Count; i++)
+        {
+            if (direction == 0)
+            {
+                selected[i].OverrideMovement(point);
+                //GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                //g.GetComponent<Renderer>().material.color = Color.green;
+                //g.transform.position = point;
+                direction = 1;
+                toPlace = 1;
+                placed = 0;
+            }
+            //Right
+            else if (direction == 1)
+            {
+                point.x += 2;
+                //GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                //g.GetComponent<Renderer>().material.color = Color.blue;
+                //g.transform.position = point;
+                selected[i].OverrideMovement(point);
+                placed++;
+                if (placed == toPlace)
+                {
+                    placed = 0;
+                    direction = 2;
+                }
+            }
+            //Down
+            else if (direction == 2)
+            {
+                //if (placed == 0) toPlace++;
+                point.z -= 2;
+                selected[i].OverrideMovement(point);
+                //GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                //g.GetComponent<Renderer>().material.color = Color.red;
+                //g.transform.position = point;
+                placed++;
+                if (placed == toPlace)
+                {
+                    //Debug.Log("Switching dir at " + i);
+                    toPlace++;
+                    placed = 0;
+                    direction = 3;
+                }
+            }
+            //Left
+            else if (direction == 3)
+            {
+                //if (placed == 0) toPlace++;
+                point.x -= 2;
+                selected[i].OverrideMovement(point);
+                //GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                //g.GetComponent<Renderer>().material.color = Color.yellow;
+                //g.transform.position = point;
+                placed++;
+                if (toPlace == placed)
+                {
+                    //Debug.Log("Switching dir at " + i);
+                    placed = 0;
+                    direction = 4;
+                    //if (toPlace == 2) toPlace++;
+                }
+            }
+            //Up
+            else
+            {
+                point.z += 2;
+                selected[i].OverrideMovement(point);
+                //GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                //g.GetComponent<Renderer>().material.color = Color.magenta;
+                //g.transform.position = point;
+                placed++;
+                if (toPlace == placed)
+                {
+                    //Debug.Log("Switching dir at " + i);
+                    placed = 0;
+                    direction = 1;
+                    toPlace++;
+                }
             }
         }
     }
