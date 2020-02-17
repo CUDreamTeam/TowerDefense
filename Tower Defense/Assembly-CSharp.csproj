@@ -65,10 +65,10 @@
     <Compile Include="Assets\Scripts\Camera\CameraController.cs" />
     <Compile Include="Assets\Scripts\Camera\UnitSelection.cs" />
     <Compile Include="Assets\Scripts\ChargedAttackUnit.cs" />
-    <Compile Include="Assets\Scripts\CombatHandler.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\MinHeap.cs" />
     <Compile Include="Assets\Scripts\Resources\ResourceNode.cs" />
+    <Compile Include="Assets\Scripts\UnitScripts\CombatHandler.cs" />
     <Compile Include="Assets\Scripts\UnitScripts\HealthBar.cs" />
     <Compile Include="Assets\Scripts\UnitScripts\PlayerHQ.cs" />
     <Compile Include="Assets\Scripts\UnitScripts\ResourceCollector.cs" />

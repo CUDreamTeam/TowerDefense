@@ -323,15 +323,15 @@ MonoBehaviour:
   healthBar: {fileID: 7328501032354540433}
   isMovable: 0
   canAttack: 0
-  isSelected: 0
+  isCollector: 0
   startSearch: 0
-  startApproach: 0
-  startAttack: 0
-  isApproaching: 0
-  isAttacking: 0
   onTargetSearch: 0
+  startApproach: 0
+  isApproaching: 0
   navAgent: {fileID: 0}
   moveSpeed: 3.5
+  isAttacking: 0
+  isSelected: 0
   target: {fileID: 0}
   searchRange: 10
   idealRange: 2
@@ -345,6 +345,7 @@ MonoBehaviour:
   currentHealth: 100
   overrideMovement: 0
   overrideMovePos: {x: 0, y: 0, z: 0}
+  lastMoveDist: 3.4028235e+38
   spawnLocs:
   - {fileID: 390038850989555194}
   - {fileID: 5896312514378677596}
@@ -352,11 +353,7 @@ MonoBehaviour:
   - {fileID: 7641395924594490441}
   - {fileID: 8267341746286592357}
   unitsToSpwn:
-  - {fileID: 5804051067517553338, guid: 12515dd2b335c29408a443d4414153d8, type: 3}
-  - {fileID: 5804051067517553338, guid: 12515dd2b335c29408a443d4414153d8, type: 3}
-  - {fileID: 6612331447036039392, guid: 796a720e24fd6c44ab794f3a90044856, type: 3}
-  - {fileID: 3531860127928454963, guid: 5d2ac7d50d65e5c4cbd8eefa81b3afb2, type: 3}
-  - {fileID: 3531860127928454963, guid: 5d2ac7d50d65e5c4cbd8eefa81b3afb2, type: 3}
+  - {fileID: 9139736503859501400, guid: 4e25cb2fc7fa3a045aba3022e2498860, type: 3}
   unitCapacity: 50
   currentUnits: 10
 --- !u!208 &2524223372959733163

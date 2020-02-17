@@ -4,8 +4,26 @@ using UnityEngine;
 
 public class ResourceNode : AttackableObject
 {
-    public override void Populate(int teamCode)
+    private void Start()
     {
         CombatHandler.instance.AddResourceNode(this);
     }
+
+    public override void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        //healthBar.changeHealth(currentHealth / maxHealth);
+        if (currentHealth <= 0)
+        {
+            //            Debug.Log("Killed unit");
+            //CombatHandler.instance.RemoveUnit(this);
+            CombatHandler.instance.DestroyObject(this);
+        }
+        Debug.Log("Resources left: " + currentHealth);
+    }
+
+    /*public override void Populate(int teamCode)
+    {
+        CombatHandler.instance.AddResourceNode(this);
+    }*/
 }

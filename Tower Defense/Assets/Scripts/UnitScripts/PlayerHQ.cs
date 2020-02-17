@@ -18,6 +18,7 @@ public class PlayerHQ : AttackableObject
         CombatHandler.instance.AddUnit(this);
 
         gameObject.GetComponent<Renderer>().material.color = GameManager.instance.players[TeamCode].playerColor;
+        GameManager.instance.players[TeamCode].headQuarters = this;
 
         //TeamCode = teamCode;
         healthBar.SetFillColor(GameManager.instance.players[teamCode].playerColor);
@@ -28,7 +29,7 @@ public class PlayerHQ : AttackableObject
     IEnumerator SpawnUnits()
     {
         while (CombatHandler.instance == null) yield return new WaitForSeconds(1);
-        for (int i = 0; i < 2; i++)
+        /*for (int i = 0; i < 2; i++)
         {
             for (int j = 0; j < 5; j++)
             {
@@ -37,6 +38,12 @@ public class PlayerHQ : AttackableObject
                 //Debug.Log("Creating unit of team " + TeamCode);
             }
             yield return new WaitForSeconds(3f);
+        }*/
+        for (int j = 0; j < unitsToSpwn.Length; j++)
+        {
+            GameObject g = Instantiate(unitsToSpwn[j], spawnLocs[j].position, spawnLocs[j].rotation);
+            g.GetComponent<AttackableObject>().Populate(TeamCode);
+            //Debug.Log("Creating unit of team " + TeamCode);
         }
     }
 }

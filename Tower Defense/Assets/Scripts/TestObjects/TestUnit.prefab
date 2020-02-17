@@ -96,16 +96,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TeamCode: 0
   healthBar: {fileID: 5578432595489298558}
-  isMovable: 0
+  isMovable: 1
   canAttack: 0
-  isSelected: 0
+  isCollector: 0
   startSearch: 0
+  onTargetSearch: 0
   startApproach: 0
   isApproaching: 0
-  isAttacking: 0
-  onTargetSearch: 0
   navAgent: {fileID: 0}
   moveSpeed: 3.5
+  isAttacking: 0
+  isSelected: 0
   target: {fileID: 0}
   searchRange: 50
   idealRange: 2

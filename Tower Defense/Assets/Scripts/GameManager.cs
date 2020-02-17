@@ -42,6 +42,7 @@ public class PlayerInfo
     public int playerCode = 0;
     public List<AttackableObject> attackableObjects = new List<AttackableObject>();
     public Color playerColor = Color.green;
+    public PlayerHQ headQuarters = null;
 }
 
 public class TeamInfo

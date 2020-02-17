@@ -679,6 +679,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5495903061998495816, guid: 27b7d1127d3766149a31e0b965824cfe,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5495903061998495816, guid: 27b7d1127d3766149a31e0b965824cfe,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7378586033526569636, guid: 27b7d1127d3766149a31e0b965824cfe,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27b7d1127d3766149a31e0b965824cfe, type: 3}
 --- !u!4 &769235331 stripped
@@ -1122,6 +1137,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5495903061998495816, guid: 27b7d1127d3766149a31e0b965824cfe,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5495903061998495816, guid: 27b7d1127d3766149a31e0b965824cfe,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7378586033526569636, guid: 27b7d1127d3766149a31e0b965824cfe,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27b7d1127d3766149a31e0b965824cfe, type: 3}
 --- !u!4 &1390291642 stripped
@@ -1178,6 +1208,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982bc06faff8aff44b2105f61e121512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TeamCode: 0
+  healthBar: {fileID: 0}
+  isMovable: 0
+  canAttack: 0
+  isCollector: 0
+  startSearch: 0
+  onTargetSearch: 0
+  startApproach: 0
+  isApproaching: 0
+  navAgent: {fileID: 0}
+  moveSpeed: 5
+  isAttacking: 0
+  isSelected: 0
+  target: {fileID: 0}
+  searchRange: 10
+  idealRange: 2
+  prevDist: 0
+  apprFailed: 0
+  critApprFailed: 10
+  attackDamage: 10
+  lastAttack: 0
+  timeBetweenAttacks: 1
+  maxHealth: 100
+  currentHealth: 100
+  overrideMovement: 0
+  overrideMovePos: {x: 0, y: 0, z: 0}
+  lastMoveDist: 3.4028235e+38
 --- !u!1 &2129980344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1273,6 +1330,21 @@ PrefabInstance:
     - target: {fileID: 5380846369300488333, guid: 27b7d1127d3766149a31e0b965824cfe,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5495903061998495816, guid: 27b7d1127d3766149a31e0b965824cfe,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5495903061998495816, guid: 27b7d1127d3766149a31e0b965824cfe,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7378586033526569636, guid: 27b7d1127d3766149a31e0b965824cfe,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
