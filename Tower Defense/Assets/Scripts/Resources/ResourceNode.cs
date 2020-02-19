@@ -12,14 +12,14 @@ public class ResourceNode : AttackableObject
     public override void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        //healthBar.changeHealth(currentHealth / maxHealth);
+        healthBar.changeHealth(currentHealth / maxHealth);
         if (currentHealth <= 0)
         {
             //            Debug.Log("Killed unit");
             //CombatHandler.instance.RemoveUnit(this);
             CombatHandler.instance.DestroyObject(this);
         }
-        Debug.Log("Resources left: " + currentHealth);
+        //Debug.Log("Resources left: " + currentHealth);
     }
 
     /*public override void Populate(int teamCode)

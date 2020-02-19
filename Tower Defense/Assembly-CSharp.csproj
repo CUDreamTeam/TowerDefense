@@ -68,6 +68,8 @@
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\MinHeap.cs" />
     <Compile Include="Assets\Scripts\Resources\ResourceNode.cs" />
+    <Compile Include="Assets\Scripts\UI\MidGameUI.cs" />
+    <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\Scripts\UnitScripts\CombatHandler.cs" />
     <Compile Include="Assets\Scripts\UnitScripts\HealthBar.cs" />
     <Compile Include="Assets\Scripts\UnitScripts\PlayerHQ.cs" />

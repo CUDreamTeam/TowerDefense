@@ -12,6 +12,9 @@ public class ResourceCollector : AttackableObject
 
     public float lastCollectionTime = 0;
 
+    public float collectRange = 3f;
+    public float depositRange = 5f;
+
     public override void Populate(int teamCode)
     {
         searchRange = float.MaxValue;
@@ -19,6 +22,8 @@ public class ResourceCollector : AttackableObject
         isMovable = true;
         isCollector = true;
         navAgent = GetComponent<NavMeshAgent>();
+
+        idealRange = collectRange;
     }
 
     /*public void CollectResources()
@@ -36,7 +41,8 @@ public class ResourceCollector : AttackableObject
         {
             if (collectionAmount + collected >= capacity)
             {
-                target.TakeDamage(collected - collectionAmount);
+                Debug.Log("Collecting partial: " + (capacity - collected));
+                target.TakeDamage(capacity - collected);
                 collected = capacity;
 
                 isAttacking = false;
@@ -47,9 +53,33 @@ public class ResourceCollector : AttackableObject
             {
                 target.TakeDamage(collectionAmount);
                 collected += collectionAmount;
+                if (collected >= capacity)
+                {
+                    isAttacking = false;
+                    isApproaching = true;
+                    target = GameManager.instance.players[TeamCode].headQuarters;
+                }
             }
-            Debug.Log("Collected: " + collected);
+//            Debug.Log("Collected: " + collected);
             lastAttack = Time.realtimeSinceStartup;
+        }
+    }
+
+    public override void OnReachTarget()
+    {
+        if (TeamCode == 0) Debug.Log("Reached target");
+        if (target == GameManager.instance.players[TeamCode].headQuarters)
+        {
+            GameManager.instance.players[TeamCode].resources += collected;
+            collected = 0;
+            if (TeamCode == 0) Debug.Log("Collected resources");
+            idealRange = collectRange;
+            isAttacking = false;
+            startSearch = true;
+        }
+        else
+        {
+            idealRange = depositRange;
         }
     }
 }

@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject playerHQ = null;
 
-    public List<PlayerInfo> players = new List<PlayerInfo>();
+    //public List<PlayerInfo> players = new List<PlayerInfo>();
+    public PlayerInfo[] players = new PlayerInfo[20];
 
     private void Awake()
     {
@@ -25,14 +26,16 @@ public class GameManager : MonoBehaviour
             //Color temp = new Color32((Random.Range(0, 255)) / 255, Random.Range(0, 255) / 255, Random.Range(0, 255) / 255, 1);
             Color temp = new Color32((byte)Random.Range(0, 255), (byte)Random.Range(0, 255), (byte)Random.Range(0, 255), 255);
             //Debug.Log("Temp: " + temp);
-            players.Add(new PlayerInfo()
+            PlayerInfo player = new PlayerInfo()
             {
                 playerCode = 0,
                 playerColor = temp
-            });
+            };
+            players[i] = player;
             GameObject g = Instantiate(playerHQ, spawnLocs[i].position, spawnLocs[i].rotation);
             g.GetComponent<PlayerHQ>().Populate(i);
         }
+        UIManager.instance.Populate(ref players[0]);
     }
 }
 
@@ -40,9 +43,14 @@ public class GameManager : MonoBehaviour
 public class PlayerInfo
 {
     public int playerCode = 0;
-    public List<AttackableObject> attackableObjects = new List<AttackableObject>();
     public Color playerColor = Color.green;
     public PlayerHQ headQuarters = null;
+
+    public int unitCapacity = 10;
+    public List<AttackableObject> attackableObjects = new List<AttackableObject>();
+
+    public float resources = 0f;
+    public float resourceCapacity = 100f;
 }
 
 public class TeamInfo

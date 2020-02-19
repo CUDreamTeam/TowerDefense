@@ -128,7 +128,7 @@ public class CombatHandler : MonoBehaviour
                     }
                     else if(searcher.isCollector)
                     {
-                        Debug.Log("Searcher is collector");
+//                        Debug.Log("Searcher is collector");
                         /*int searchCount = 1;
                         while (closest == null && searchCount < resources.Count)
                         {
@@ -321,18 +321,20 @@ public class CombatHandler : MonoBehaviour
                                     appr.isApproaching = false;
                                     appr.startSearch = true;
                                     appr.apprFailed = 0;
+                                    Debug.Log("Approach failed");
                                 }
                             }
                             else
                             {
                                 if (dist < stoppingDist)
                                 {
-                                    //                                Debug.Log("Reached target");
+                                    //Debug.Log("Reached target");
                                     apprNav.SetDestination(appr.transform.position);
                                     //Debug.Log("Starting to attack");
                                     //Set unit up for attacking
                                     appr.isApproaching = false;
                                     appr.isAttacking = true;
+                                    if (appr.isCollector) appr.OnReachTarget();
                                 }
                                 else
                                 {
@@ -573,6 +575,11 @@ public abstract class AttackableObject : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public virtual void OnReachTarget()
+    {
+        
     }
 }
 
