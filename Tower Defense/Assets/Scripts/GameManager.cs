@@ -50,7 +50,7 @@ public class PlayerInfo
     public List<AttackableObject> attackableObjects = new List<AttackableObject>();
 
     public float resources = 0f;
-    public float resourceCapacity = 100f;
+    public float resourceCapacity = 1000f;
 }
 
 public class TeamInfo

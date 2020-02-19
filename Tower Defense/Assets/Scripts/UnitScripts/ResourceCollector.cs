@@ -41,7 +41,7 @@ public class ResourceCollector : AttackableObject
         {
             if (collectionAmount + collected >= capacity)
             {
-                Debug.Log("Collecting partial: " + (capacity - collected));
+//                Debug.Log("Collecting partial: " + (capacity - collected));
                 target.TakeDamage(capacity - collected);
                 collected = capacity;
 
@@ -67,19 +67,37 @@ public class ResourceCollector : AttackableObject
 
     public override void OnReachTarget()
     {
-        if (TeamCode == 0) Debug.Log("Reached target");
+//        if (TeamCode == 0) Debug.Log("Reached target");
         if (target == GameManager.instance.players[TeamCode].headQuarters)
         {
-            GameManager.instance.players[TeamCode].resources += collected;
-            collected = 0;
-            if (TeamCode == 0) Debug.Log("Collected resources");
-            idealRange = collectRange;
-            isAttacking = false;
-            startSearch = true;
+            PlayerInfo player = GameManager.instance.players[TeamCode];
+            if (player.resources + collected > player.resourceCapacity)
+            {
+                player.resources += player.resourceCapacity - player.resources;
+                collected -= player.resourceCapacity - player.resources;
+                StartCoroutine(WaitToDeposit());
+            }
+            else
+            {
+                player.resources += collected;
+                collected = 0;
+                idealRange = collectRange;
+                isAttacking = false;
+                startSearch = true;
+            }
         }
         else
         {
             idealRange = depositRange;
         }
+    }
+
+    IEnumerator WaitToDeposit()
+    {
+        Debug.Log("Waiting to deposit");
+        PlayerInfo player = GameManager.instance.players[TeamCode];
+        while (player.resources + collected > player.resourceCapacity) yield return null;
+        Debug.Log("Can deposit");
+        OnReachTarget();
     }
 }

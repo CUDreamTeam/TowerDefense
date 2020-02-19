@@ -62,7 +62,8 @@ public class CombatHandler : MonoBehaviour
 
     public void RemoveResourceNode(ResourceNode r)
     {
-        resources.RemoveAt(new float[] { transform.transform.position.x, r.transform.position.z});
+//        Debug.Log("Removing Node");
+        resources.RemoveAt(new float[] { r.transform.position.x, r.transform.position.z});
     }
 
     IEnumerator HandleSearch()
@@ -128,13 +129,15 @@ public class CombatHandler : MonoBehaviour
                     }
                     else if(searcher.isCollector)
                     {
-//                        Debug.Log("Searcher is collector");
+                        //                        Debug.Log("Searcher is collector");
                         /*int searchCount = 1;
                         while (closest == null && searchCount < resources.Count)
                         {
                             
                         }*/
-                        closest = resources.GetNearestNeighbours(searcher.GetFloatArray(), 1)[0].Value;
+                        //                        Debug.Log("Resource node is null: " + (resources.GetNearestNeighbours(searcher.GetFloatArray(), 1)[0].Value == null));
+                        KdTreeNode<float, ResourceNode>[] temp = resources.GetNearestNeighbours(searcher.GetFloatArray(), 1); 
+                        if(temp.Length > 0 && temp[0] != null) closest = resources.GetNearestNeighbours(searcher.GetFloatArray(), 1)[0].Value;
                     }
                     else
                     {
@@ -321,7 +324,7 @@ public class CombatHandler : MonoBehaviour
                                     appr.isApproaching = false;
                                     appr.startSearch = true;
                                     appr.apprFailed = 0;
-                                    Debug.Log("Approach failed");
+//                                    Debug.Log("Approach failed");
                                 }
                             }
                             else
@@ -383,9 +386,14 @@ public class CombatHandler : MonoBehaviour
 
                         if (Vector3.Distance(attacker.transform.position, target.transform.position) > attacker.idealRange)
                         {
-                            if (!attacker.overrideMovement)
+                            if (!attacker.overrideMovement && attacker.isMovable)
                             {
                                 attacker.isApproaching = true;
+                                attacker.isAttacking = false;
+                            }
+                            else if (!attacker.overrideMovement)
+                            {
+                                attacker.startSearch = true;
                                 attacker.isAttacking = false;
                             }
                         }
@@ -416,6 +424,7 @@ public class CombatHandler : MonoBehaviour
 
     private void RemoveDeadUnits()
     {
+//        Debug.Log("Removing: " + toDestroy.Count);
         foreach (AttackableObject a in toDestroy)
         {
             RemoveUnit(a);

@@ -67,13 +67,17 @@
     <Compile Include="Assets\Scripts\ChargedAttackUnit.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\MinHeap.cs" />
+    <Compile Include="Assets\Scripts\Placement\BuildingGhost.cs" />
+    <Compile Include="Assets\Scripts\Placement\BuildingPlacement.cs" />
     <Compile Include="Assets\Scripts\Resources\ResourceNode.cs" />
+    <Compile Include="Assets\Scripts\UI\BuildMenu.cs" />
     <Compile Include="Assets\Scripts\UI\MidGameUI.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\Scripts\UnitScripts\CombatHandler.cs" />
     <Compile Include="Assets\Scripts\UnitScripts\HealthBar.cs" />
     <Compile Include="Assets\Scripts\UnitScripts\PlayerHQ.cs" />
     <Compile Include="Assets\Scripts\UnitScripts\ResourceCollector.cs" />
+    <Compile Include="Assets\Scripts\UnitScripts\Turret.cs" />
     <Compile Include="Assets\Scripts\UnitScripts\Unit.cs" />
     <Compile Include="Assets\Scripts\Utilities\KdTree\GameObjectMath.cs" />
     <Compile Include="Assets\Scripts\Utilities\KdTree\KdTreeLib\HyperRect.cs" />

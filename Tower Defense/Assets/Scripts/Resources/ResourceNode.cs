@@ -17,7 +17,8 @@ public class ResourceNode : AttackableObject
         {
             //            Debug.Log("Killed unit");
             //CombatHandler.instance.RemoveUnit(this);
-            CombatHandler.instance.DestroyObject(this);
+            CombatHandler.instance.RemoveResourceNode(this);
+            Destroy(gameObject);
         }
         //Debug.Log("Resources left: " + currentHealth);
     }
