@@ -21,7 +21,9 @@ public class BuildingPlacement : MonoBehaviour
             RaycastHit hit = new RaycastHit();
             if (Physics.Raycast(ray, out hit, 256))
             {
-                ghost.transform.position = hit.point;
+                Vector3 temp = hit.point;
+                temp.y += ghost.transform.localScale.y / 2;
+                ghost.transform.position = temp;
             }
 
             if (Input.GetMouseButtonDown(0))

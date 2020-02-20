@@ -217,7 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TeamCode: 0
   healthBar: {fileID: 504335495471772878}
-  isMovable: 0
+  isMovable: 1
   canAttack: 0
   isCollector: 0
   startSearch: 0

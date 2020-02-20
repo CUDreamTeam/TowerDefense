@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BuildingGhost : MonoBehaviour
 {
-    private int collisions = 0;
-
     private Renderer rend = null;
 
     public int teamCode = 0;
     [SerializeField] private AttackableObject toSpawn = null;
+
+    bool canPlace = false;
 
     private void Start()
     {
@@ -23,40 +23,19 @@ public class BuildingGhost : MonoBehaviour
 
     public bool CanPlace()
     {
-        return collisions == 0;
+        return canPlace;
     }
 
     private void Update()
     {
-        if (collisions == 0)
-        {
-            rend.material.color = Color.green;
-        }
-        else
-        {
-            rend.material.color = Color.red;
-        }
-    }
+        canPlace = CombatHandler.instance.CanPlace(new Vector2(transform.position.x, transform.position.z), 5);
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag != "Ground")
-        {
-            collisions++;
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag != "Ground")
-        {
-            collisions--;
-        }
+        rend.material.color = canPlace ? Color.green : Color.red;
     }
 
     public bool TryPlace()
     {
-        if (collisions == 0)
+        if (canPlace)
         {
             GameObject g = Instantiate(toSpawn.gameObject, transform.position, transform.rotation);
             g.GetComponent<AttackableObject>().Populate(teamCode);

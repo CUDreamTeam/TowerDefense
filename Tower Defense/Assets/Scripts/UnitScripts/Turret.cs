@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Turret : AttackableObject
 {
+    [SerializeField] private GameObject rangeMarker = null;
+
     public override void Populate(int teamCode)
     {
         TeamCode = teamCode;
@@ -16,5 +18,15 @@ public class Turret : AttackableObject
 
         isMovable = false;
         canAttack = true;
+
+        rangeMarker.transform.localScale = new Vector3(idealRange, 0.0001f, idealRange);
+        rangeMarker.SetActive(false);
+    }
+
+    public override void SetSelected(bool selected)
+    {
+        base.SetSelected(selected);
+
+        rangeMarker.SetActive(selected);
     }
 }

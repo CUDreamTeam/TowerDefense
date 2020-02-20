@@ -47,7 +47,10 @@ public class PlayerInfo
     public PlayerHQ headQuarters = null;
 
     public int unitCapacity = 10;
+    public int buildingCapacity = 10;
     public List<AttackableObject> attackableObjects = new List<AttackableObject>();
+    public List<AttackableObject> units = new List<AttackableObject>();
+    public List<AttackableObject> buildings = new List<AttackableObject>();
 
     public float resources = 0f;
     public float resourceCapacity = 1000f;

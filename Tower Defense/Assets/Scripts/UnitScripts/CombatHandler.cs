@@ -21,6 +21,8 @@ public class CombatHandler : MonoBehaviour
     public Text deltaApproachTime = null;
 
     private KdTree<float, ResourceNode> resources = new KdTree<float, ResourceNode>(2, new FloatMath());
+    //Used for building placement
+    private KdTree<float, AttackableObject> staticObjects = new KdTree<float, AttackableObject>(2, new FloatMath());
 
     private void Awake()
     {
@@ -43,27 +45,52 @@ public class CombatHandler : MonoBehaviour
         {
             units[a.TeamCode].Add(a);
         }
+        
+        if (!a.isMovable)
+        {
+            staticObjects.Add(a.GetFloatArray(), a);
+            GameManager.instance.players[a.TeamCode].buildings.Add(a);
+        }
+        else
+        {
+            GameManager.instance.players[a.TeamCode].units.Add(a);
+        }
     }
 
     public void AddResourceNode(ResourceNode r)
     {
         resources.Add(new float[] { r.transform.position.x, r.transform.position.z}, r);
+        staticObjects.Add(r.GetFloatArray(), r);
     }
 
     public void RemoveUnit(AttackableObject a)
     {
         units[a.TeamCode].Remove(a);
+        if (!a.isMovable) staticObjects.RemoveAt(a.GetFloatArray());
     }
 
     public void DestroyObject(AttackableObject a)
     {
         toDestroy.Add(a);
+        if (!a.isMovable)
+        {
+            staticObjects.RemoveAt(a.GetFloatArray());
+        }
     }
 
     public void RemoveResourceNode(ResourceNode r)
     {
-//        Debug.Log("Removing Node");
+        //Debug.Log("Removing Node");
         resources.RemoveAt(new float[] { r.transform.position.x, r.transform.position.z});
+        staticObjects.RemoveAt(new float[] { r.transform.position.x, r.transform.position.z });
+    }
+
+    public bool CanPlace(Vector2 pos, float dist)
+    {
+        AttackableObject temp = staticObjects.GetNearestNeighbours(new float[] { pos.x, pos.y }, 1)[0].Value;
+        if (temp == null) return false;
+        Vector2 t = new Vector2(temp.transform.position.x, temp.transform.position.z);
+        return Vector2.Distance(pos, t) >= dist;
     }
 
     IEnumerator HandleSearch()
@@ -402,6 +429,10 @@ public class CombatHandler : MonoBehaviour
                             attacker.AttackTarget();
                         }
                     }
+                    else if (attacker.isAttacking && attacker.isBuilder)
+                    {
+                        attacker.AttackTarget();
+                    }
                     else if(attacker.isAttacking && attacker.target == null)
                     {
                         attacker.isAttacking = false;
@@ -427,6 +458,14 @@ public class CombatHandler : MonoBehaviour
 //        Debug.Log("Removing: " + toDestroy.Count);
         foreach (AttackableObject a in toDestroy)
         {
+            if (a.isMovable)
+            {
+                GameManager.instance.players[a.TeamCode].units.Remove(a);
+            }
+            else
+            {
+                GameManager.instance.players[a.TeamCode].buildings.Remove(a);
+            }
             RemoveUnit(a);
             Destroy(a.gameObject);
         }
@@ -435,6 +474,7 @@ public class CombatHandler : MonoBehaviour
 
     private void OnGUI()
     {
+        if (units.Keys.Count == 0) return;
         int count = 0;
         for (int i = 0; i < unitCodes.Count; i++)
         {
@@ -454,6 +494,7 @@ public abstract class AttackableObject : MonoBehaviour
     public bool isMovable = false;
     public bool canAttack = false;
     public bool isCollector = false;
+    public bool isBuilder = false;
 
     //Handler values
     //-Search

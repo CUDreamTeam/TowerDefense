@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Resources\ResourceNode.cs" />
     <Compile Include="Assets\Scripts\UI\BuildMenu.cs" />
     <Compile Include="Assets\Scripts\UI\MidGameUI.cs" />
+    <Compile Include="Assets\Scripts\UI\UnitFactoryUI.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\Scripts\UnitScripts\CombatHandler.cs" />
     <Compile Include="Assets\Scripts\UnitScripts\HealthBar.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Assets\Scripts\UnitScripts\ResourceCollector.cs" />
     <Compile Include="Assets\Scripts\UnitScripts\Turret.cs" />
     <Compile Include="Assets\Scripts\UnitScripts\Unit.cs" />
+    <Compile Include="Assets\Scripts\UnitScripts\UnitFactory.cs" />
     <Compile Include="Assets\Scripts\Utilities\KdTree\GameObjectMath.cs" />
     <Compile Include="Assets\Scripts\Utilities\KdTree\KdTreeLib\HyperRect.cs" />
     <Compile Include="Assets\Scripts\Utilities\KdTree\KdTreeLib\IKdTree.cs" />
